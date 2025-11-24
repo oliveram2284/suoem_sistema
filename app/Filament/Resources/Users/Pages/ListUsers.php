@@ -11,9 +11,9 @@ use Filament\Support\Icons\Heroicon;
 class ListUsers extends ListRecords
 {
     protected static string $resource         = UserResource::class;
-    protected static ?string $title           = 'Listado de Usuarios';
-    protected static ?string $navigationLabel = 'Usuarios';
-    protected static ?string $breadcrumb      = 'Listado de Usuarios';
+    protected static ?string $title           = 'Usuarios';
+    protected static ?string $navigationLabel = 'Administración';
+    protected static ?string $breadcrumb      = 'Listado';
 
     protected function getHeaderActions(): array
     {
