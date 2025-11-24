@@ -20,9 +20,13 @@ class ProveedorResource extends Resource
 {
     protected static ?string $model = Proveedor::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
-
     protected static ?string $recordTitleAttribute = 'cuit';
+    protected static ?string $title = 'Proveedores';
+    protected static ?string $navigationLabel = 'Proveedores';    
+    protected static string|\UnitEnum|null $navigationGroup = 'Administración';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::RectangleStack;
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::RectangleStack;
+    protected static ?string $breadcrumb = 'Proveedores';
 
     public static function form(Schema $schema): Schema
     {

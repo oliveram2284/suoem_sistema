@@ -22,7 +22,7 @@ class UserResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $title = 'Usuarios';
     protected static ?string $navigationLabel = 'Usuarios';
-    protected static string|\UnitEnum|null $navigationGroup = 'Administración';
+    protected static string|\UnitEnum|null $navigationGroup = 'Configuración';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
     protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::OutlinedUsers;
     protected static ?string $breadcrumb = 'Usuarios';
