@@ -22,4 +22,9 @@ class Proveedor extends Model
         'telefono',
         'email'
     ];
+
+    public function movimientos()
+    {
+        return $this->hasMany(Movimiento::class);
+    }
 }
