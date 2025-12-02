@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Proveedors;
 use App\Filament\Resources\Proveedors\Pages\CreateProveedor;
 use App\Filament\Resources\Proveedors\Pages\EditProveedor;
 use App\Filament\Resources\Proveedors\Pages\ListProveedors;
+use App\Filament\Resources\Proveedors\Pages\ViewProveedor;
 use App\Filament\Resources\Proveedors\Schemas\ProveedorForm;
 use App\Filament\Resources\Proveedors\Tables\ProveedorsTable;
 use App\Models\Proveedor;
@@ -20,9 +21,9 @@ class ProveedorResource extends Resource
 {
     protected static ?string $model = Proveedor::class;
 
-    protected static ?string $recordTitleAttribute = 'cuit';
+    protected static ?string $recordTitleAttribute = 'nombre';
     protected static ?string $title = 'Proveedores';
-    protected static ?string $navigationLabel = 'Proveedores';    
+    protected static ?string $navigationLabel = 'Proveedores';
     protected static string|\UnitEnum|null $navigationGroup = 'Administración';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::RectangleStack;
     protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::RectangleStack;
@@ -48,9 +49,10 @@ class ProveedorResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListProveedors::route('/'),
-            'create' => CreateProveedor::route('/create'),
-            'edit' => EditProveedor::route('/{record}/edit'),
+            'index'  => ListProveedors::route('/'),
+            'create' => CreateProveedor::route('/crear'),
+            'edit'   => EditProveedor::route('/{record}/editar'),
+            'view'   => ViewProveedor::route('/{record}'),
         ];
     }
 

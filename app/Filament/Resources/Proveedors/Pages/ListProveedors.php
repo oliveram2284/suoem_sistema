@@ -13,7 +13,15 @@ class ListProveedors extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Crear Proveedor')
+                ->successNotificationTitle('Proveedor creado')
+                ->successRedirectUrl($this->getResource()::getUrl('index')),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Proveedores';
     }
 }

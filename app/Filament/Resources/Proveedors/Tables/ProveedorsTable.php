@@ -12,6 +12,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use App\Models\Proveedor;
+use Filament\Actions\ViewAction;
 
 class ProveedorsTable
 {
@@ -59,12 +60,16 @@ class ProveedorsTable
                     ->date('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),*/
-                    
+
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                ViewAction::make()
+                ->label('Ver')
+                ->icon('heroicon-o-eye')
+                ->color('amber'),
                 EditAction::make()
                 ->label('Editar')
                 ->icon('heroicon-o-pencil')
