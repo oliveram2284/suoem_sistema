@@ -25,15 +25,21 @@ class Movimiento extends Model
 
     protected $fillable = [
         'proveedor_id',
+        'concepto_id',
         'monto',
         'observacion',
         'estado',
-        'usuer_id'
+        'user_id'
     ];
 
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
+    }
+
+    public function concepto()
+    {
+        return $this->belongsTo(Concepto::class);
     }
 
     public function user()

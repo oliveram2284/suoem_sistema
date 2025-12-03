@@ -6,6 +6,7 @@ use App\Models\Proveedor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Get;
 use Filament\Schemas\Schema;
 
 class MovimientoForm
@@ -34,17 +35,18 @@ class MovimientoForm
                 Textarea::make('observacion')
                     ->columnSpanFull(),
                 Select::make('estado')
-                ->options(
-                    [
-                        'pendiente' => 'Pendiente',
-                        'pagado'    => 'Pagado',
-                        'anulado'   => 'Anulado',
-                        'cancelado' => 'Cancelado',
-                    ])->default('pendiente')
+                    ->options(fn ($operation) => $operation === 'create'
+                        ? ['pendiente' => 'Pendiente']
+                        : [
+                            'pendiente' => 'Pendiente',
+                            'pagado'    => 'Pagado',
+                            'anulado'   => 'Anulado',
+                            'cancelado' => 'Cancelado',
+                        ])
+                    ->default('pendiente')
+                    ->disabled(fn ($operation) => $operation === 'create')
+                    ->dehydrated()
                     ->required(),
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
             ]);
     }
 }

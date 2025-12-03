@@ -17,4 +17,10 @@ class Concepto extends Model
         'nombre',
         'descripcion',
     ];
+
+
+    public function movimientos()
+    {
+        return $this->hasMany(Movimiento::class);
+    }
 }

@@ -32,6 +32,15 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('SUOEM Administración')
             ->colors([
                 'primary' => Color::Blue,
+                'orange' => Color::Orange,
+                'gray' => Color::Gray,
+                'danger' => Color::Red,
+                'success' => Color::Green,
+                'warning' => Color::Yellow,
+                'info' => Color::Cyan,
+                'info-dark' => Color::Indigo,
+                'secondary' => Color::Purple,
+
                 //'primary' => '#6366f1',
             ])
             //->font('Poppins')

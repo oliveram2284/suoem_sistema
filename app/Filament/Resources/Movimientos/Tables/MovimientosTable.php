@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Movimientos\Tables;
 
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -23,9 +24,25 @@ class MovimientosTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('monto')
+                    ->label('Importe Total')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('estado')
+                    ->badge()
+                    ->icon(fn (string $state): string => match ($state) {
+                        'pendiente' => 'heroicon-o-clock',
+                        'pagado'    => 'heroicon-o-check-circle',
+                        'anulado'   => 'heroicon-o-x-circle',
+                        'cancelado' => 'heroicon-o-minus-circle',
+                        default     => 'heroicon-o-question-mark-circle',
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'pendiente' => 'info',
+                        'pagado'    => 'success',
+                        'anulado'   => 'orange',
+                        'cancelado' => 'danger',
+                        default     => 'primary',
+                    })
                     ->label('Estado')
                     ->searchable(),
                 TextColumn::make('user.name')
@@ -49,12 +66,21 @@ class MovimientosTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                EditAction::make()
-                ->label('Editar')
-                ->icon('heroicon-o-pencil'),
-                DeleteAction::make()
-                ->label('Eliminar')
-                ->icon('heroicon-o-trash'),
+
+                ActionGroup::make([
+                    EditAction::make()
+                    ->label('Editar')
+                    ->iconPosition('before')
+                    ->size('sm')
+                    ->icon('heroicon-o-pencil'),
+                    DeleteAction::make()
+                    ->label("Eliminar")
+                    ->size('sm')
+                    ->icon('heroicon-o-trash'),
+                ])
+                ->icon('heroicon-o-ellipsis-vertical')
+                ->iconSize('md')
+                ->label('Acciones'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
