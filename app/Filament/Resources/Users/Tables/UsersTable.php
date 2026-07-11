@@ -17,13 +17,9 @@ class UsersTable
                 TextColumn::make('name')
                     ->label('Nombre')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Correo Electrónico')
+                TextColumn::make('username')
+                    ->label('Usuario')
                     ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->label('Correo Electrónico Verificado')
-                    ->dateTime()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
