@@ -41,6 +41,11 @@ RUN apt-get update && apt-get install -y libicu-dev \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install -j$(nproc) intl
 
+# Instala Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+COPY docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
 # Instala Composer (versión más reciente compatible con PHP 8.4)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

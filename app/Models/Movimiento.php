@@ -28,7 +28,7 @@ class Movimiento extends Model
         'monto',
         'observacion',
         'estado',
-        'usuer_id'
+        'user_id'
     ];
 
     public function proveedor()
