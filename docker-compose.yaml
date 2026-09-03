@@ -5,15 +5,6 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     working_dir: /var/www
-<<<<<<< Updated upstream
-    volumes:
-      - .:/var/www
-    ports:
-      - "8000:9000"
-=======
-    env_file:
-      - .env
->>>>>>> Stashed changes
     networks:
       - suoem
 
