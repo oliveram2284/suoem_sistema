@@ -12,7 +12,7 @@ class Proveedor extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'proveedores';
-    protected static ?string $modelLabel = 'Proveedor';
+
     protected $fillable = [
         'codigo',
         'nombre',
@@ -21,7 +21,7 @@ class Proveedor extends Model
         'direccion',
         'ciudad',
         'telefono',
-        'email'
+        'email',
     ];
 
     public function movimientos()

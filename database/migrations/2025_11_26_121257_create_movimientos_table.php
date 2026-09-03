@@ -9,29 +9,32 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    const ESTADO_PENDIENTE = 'pendiente';
-    const ESTADO_PAGADO    = 'pagado';
-    const ESTADO_ANULADO   = 'anulado';
-    const ESTADO_CANCELADO = 'cancelado';
-
-    const ESTADOS = [
-        self::ESTADO_PENDIENTE,
-        self::ESTADO_PAGADO,
-        self::ESTADO_ANULADO,
-        self::ESTADO_CANCELADO,
-    ];
-
     public function up(): void
     {
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('proveedor_id')->table('proveedores')->constrained()->cascadeOnDelete();
-            $table->decimal('monto', 10, 2);
-            $table->text('observacion')->nullable();
-            $table->enum('estado', self::ESTADOS)->default(self::ESTADO_PENDIENTE);
-            $table->foreignId('user_id')->table('users')->constrained()->cascadeOnDelete();
-            $table->softDeletes();
+
+            $table->foreignId('proveedor_id')->constrained('proveedores')->cascadeOnDelete();
+            $table->foreignId('concepto_id')->constrained('conceptos');
+
+            $table->smallInteger('ejercicio');
+            $table->smallInteger('anio_liquidacion');
+            $table->smallInteger('mes_liquidacion');
+            $table->unsignedTinyInteger('desfasaje_primer_pago')->default(1);
+            $table->unsignedTinyInteger('dia_pago');
+
+            $table->decimal('monto_total', 14, 2);
+            $table->unsignedSmallInteger('cantidad_cuotas');
+
+            $table->text('descripcion')->nullable();
+
+            $table->string('estado', 20)->default('pendiente')->index();
+
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->index(['proveedor_id', 'anio_liquidacion', 'mes_liquidacion']);
         });
     }
 

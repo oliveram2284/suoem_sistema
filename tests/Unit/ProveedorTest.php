@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Concepto;
 use App\Models\Movimiento;
 use App\Models\Proveedor;
 use App\Models\User;
@@ -59,20 +60,30 @@ class ProveedorTest extends TestCase
     {
         $proveedor = Proveedor::factory()->create();
         $otroProveedor = Proveedor::factory()->create();
+        $concepto = Concepto::factory()->create();
         $user = User::factory()->create();
+
+        $datosBase = [
+            'concepto_id' => $concepto->id,
+            'ejercicio' => 2026,
+            'anio_liquidacion' => 2026,
+            'mes_liquidacion' => 7,
+            'desfasaje_primer_pago' => 1,
+            'dia_pago' => 10,
+            'monto_total' => 1500.50,
+            'cantidad_cuotas' => 1,
+            'user_id' => $user->id,
+        ];
 
         $movimiento = Movimiento::create([
             'proveedor_id' => $proveedor->id,
-            'monto' => 1500.50,
-            'estado' => Movimiento::ESTADO_PENDIENTE,
-            'user_id' => $user->id,
+            ...$datosBase,
         ]);
 
         Movimiento::create([
             'proveedor_id' => $otroProveedor->id,
-            'monto' => 200,
-            'estado' => Movimiento::ESTADO_PENDIENTE,
-            'user_id' => $user->id,
+            ...$datosBase,
+            'monto_total' => 200,
         ]);
 
         $movimientos = $proveedor->movimientos;
