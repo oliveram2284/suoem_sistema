@@ -5,15 +5,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     working_dir: /var/www
-    command: >
-      sh -c "mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache &&
-      chown -R www-data:www-data storage bootstrap/cache &&
-      chmod -R ug+rwX storage bootstrap/cache &&
-      php-fpm"
     volumes:
-      - .:/var/www
-    ports:
-      - "8000:9000"
+      - app_code:/var/www
     networks:
       - suoem
 
@@ -25,6 +18,7 @@ services:
     environment:
       SERVICE_FQDN_WEB: /
     volumes:
+      - app_code:/var/www:ro
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/snippets/fastcgi-php.conf:/etc/nginx/snippets/fastcgi-php.conf:ro
     networks:
@@ -45,6 +39,7 @@ services:
       - suoem
 
 volumes:
+  app_code:
   postgres_data:
 
 networks:
