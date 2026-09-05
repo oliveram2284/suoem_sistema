@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\EstadoCuota;
+use App\Enums\EstadoMovimiento;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,28 +13,71 @@ class Movimiento extends Model
     /** @use HasFactory<\Database\Factories\MovimientoFactory> */
     use HasFactory, SoftDeletes;
 
-    const ESTADO_PENDIENTE = 'pendiente';
-    const ESTADO_PAGADO    = 'pagado';
-    const ESTADO_ANULADO   = 'anulado';
-    const ESTADO_CANCELADO = 'cancelado';
-
-    const ESTADOS = [
-        self::ESTADO_PENDIENTE,
-        self::ESTADO_PAGADO,
-        self::ESTADO_ANULADO,
-        self::ESTADO_CANCELADO,
-    ];
-
     protected $fillable = [
         'proveedor_id',
-        'monto',
-        'observacion',
+        'concepto_id',
+        'ejercicio',
+        'anio_liquidacion',
+        'mes_liquidacion',
+        'desfasaje_primer_pago',
+        'dia_pago',
+        'monto_total',
+        'cantidad_cuotas',
+        'descripcion',
         'estado',
-        'usuer_id'
+        'user_id',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'monto_total' => 'decimal:2',
+            'estado' => EstadoMovimiento::class,
+        ];
+    }
 
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
+    }
+
+    public function concepto()
+    {
+        return $this->belongsTo(Concepto::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function cuotas()
+    {
+        return $this->hasMany(MovimientoCuota::class)->orderBy('nro_cuota');
+    }
+
+    public function getTotalCuotasAttribute(): float
+    {
+        return (float) $this->cuotas->sum('importe');
+    }
+
+    public function getTotalPagadoAttribute(): float
+    {
+        return (float) $this->cuotas->where('estado', EstadoCuota::Pagada)->sum('importe');
+    }
+
+    public function getSaldoAttribute(): float
+    {
+        return (float) $this->monto_total - $this->total_pagado;
+    }
+
+    public function getPeriodoLiquidacionAttribute(): string
+    {
+        return sprintf('%02d/%d', $this->mes_liquidacion, $this->anio_liquidacion);
+    }
+
+    public function cuadra(): bool
+    {
+        return abs($this->total_cuotas - (float) $this->monto_total) < 0.01;
     }
 }

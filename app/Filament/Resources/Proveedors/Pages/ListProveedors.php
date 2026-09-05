@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Proveedors\Pages;
 
+use App\Filament\Resources\Proveedors\Actions\ImportProveedoresAction;
 use App\Filament\Resources\Proveedors\ProveedorResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
@@ -13,6 +14,7 @@ class ListProveedors extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            ImportProveedoresAction::make(),
             CreateAction::make()
                 ->label('Crear Proveedor')
                 ->successNotificationTitle('Proveedor creado')
@@ -25,3 +27,4 @@ class ListProveedors extends ListRecords
         return 'Proveedores';
     }
 }
+

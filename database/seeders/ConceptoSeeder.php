@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Concepto;
 use Illuminate\Database\Seeder;
 
 class ConceptoSeeder extends Seeder
@@ -12,6 +12,17 @@ class ConceptoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Concepto::firstOrCreate(
+            ['codigo' => '00'],
+            ['nombre' => 'Código de operación provisorio', 'descripcion' => null],
+        );
+
+        // Códigos reales de operación, a completar cuando el sindicato entregue el listado.
+        // $codigos = [
+        //     ['codigo' => '01', 'nombre' => 'Gastos Generales'],
+        // ];
+        // foreach ($codigos as $codigo) {
+        //     Concepto::firstOrCreate(['codigo' => $codigo['codigo']], $codigo);
+        // }
     }
 }
