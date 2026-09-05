@@ -1,0 +1,9 @@
+.git
+node_modules
+postgres_data
+storage/app
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+storage/framework/testing
