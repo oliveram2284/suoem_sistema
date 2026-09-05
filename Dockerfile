@@ -57,7 +57,7 @@ COPY . .
 
 # Asigna permisos
 RUN chown -R www-data:www-data /var/www
-
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 # Exponemos el puerto
 EXPOSE 9000
 
