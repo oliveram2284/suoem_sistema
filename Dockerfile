@@ -31,4 +31,5 @@ RUN echo "opcache.revalidate_freq=60" >> /usr/local/etc/php/conf.d/zz-opcache-cu
 RUN echo "opcache.fast_shutdown=1" >> /usr/local/etc/php/conf.d/zz-opcache-custom.ini
 
 RUN echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT" >> /usr/local/etc/php/conf.d/zz-php-custom.ini
-RUN echo "log_errors
+RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/zz-php-custom.ini
+RUN echo "display_errors = Off" >> /usr/local/etc/php/conf.d/zz-php-custom.ini
