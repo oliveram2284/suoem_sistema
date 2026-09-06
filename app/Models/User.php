@@ -2,14 +2,26 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Permite el acceso al panel de Filament en producción.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Devuelve true para permitir el acceso a todos los usuarios autenticados.
+        // Si tienes lógica de roles (ej. $this->is_admin), aplícala aquí.
+        return true;
+    }
 
     /**
      * The attributes that are mass assignable.
