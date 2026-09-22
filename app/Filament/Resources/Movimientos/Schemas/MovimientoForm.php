@@ -84,7 +84,8 @@ class MovimientoForm
                                 TextInput::make('importe')
                                     ->numeric()
                                     ->prefix('$')
-                                    ->required(),
+                                    ->required()
+                                    ->live(onBlur: true),
                                 TextInput::make('observacion')
                                     ->columnSpanFull(),
                             ])

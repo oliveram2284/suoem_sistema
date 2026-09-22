@@ -26,6 +26,6 @@ class ViewMovimiento extends ViewRecord
 
     public function getBreadcrumb(): string
     {
-        return "#{$this->record->id}";
+        return $this->record->proveedor->nombre;
     }
 }

@@ -28,8 +28,11 @@ class MovimientoInfolist
                         TextEntry::make('descripcion')
                             ->label('Descripción')
                             ->columnSpanFull(),
+                        TextEntry::make('created_at')
+                            ->label('Creado')
+                            ->dateTime('d/m/Y')
                     ])
-                    ->columns(4)
+                    ->columns(6)
                     ->columnSpanFull(),
 
                 Section::make('Montos')
