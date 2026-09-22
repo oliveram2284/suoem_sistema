@@ -22,6 +22,7 @@ class MovimientosTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('proveedor.nombre')
                     ->label('Proveedor')
@@ -31,32 +32,21 @@ class MovimientosTable
                     ->label('Concepto')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('created_at')
+                    ->label('Creado')
+                    ->dateTime('d/m/Y')
+                    ->sortable(),
                 TextColumn::make('periodo_liquidacion')
                     ->label('Período')
                     ->sortable(['anio_liquidacion', 'mes_liquidacion']),
-                TextColumn::make('monto_total')
-                    ->label('Monto total')
-                    ->money('ARS')
-                    ->sortable(),
                 TextColumn::make('cantidad_cuotas')
                     ->label('Cuotas')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('total_pagado')
-                    ->label('Total pagado')
-                    ->money('ARS'),
-                TextColumn::make('saldo')
-                    ->label('Saldo')
-                    ->money('ARS'),
                 TextColumn::make('estado')
                     ->badge()
                     ->color(fn (EstadoMovimiento $state) => $state->color())
                     ->formatStateUsing(fn (EstadoMovimiento $state) => $state->label()),
-                TextColumn::make('created_at')
-                    ->label('Creado')
-                    ->dateTime('d/m/Y')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('proveedor_id')

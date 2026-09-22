@@ -8,6 +8,7 @@ use App\Filament\Resources\Movimientos\Pages\ListMovimientos;
 use App\Filament\Resources\Movimientos\Pages\ViewMovimiento;
 use App\Filament\Resources\Movimientos\RelationManagers\CuotasRelationManager;
 use App\Filament\Resources\Movimientos\Schemas\MovimientoForm;
+use App\Filament\Resources\Movimientos\Schemas\MovimientoInfolist;
 use App\Filament\Resources\Movimientos\Tables\MovimientosTable;
 use App\Models\Movimiento;
 use BackedEnum;
@@ -46,6 +47,11 @@ class MovimientoResource extends Resource
     public static function table(Table $table): Table
     {
         return MovimientosTable::configure($table);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return MovimientoInfolist::configure($schema);
     }
 
     public static function getRelations(): array
