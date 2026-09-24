@@ -75,3 +75,10 @@ Cosas que noté en el código que conviene resolver antes del deploy real (no so
    deploy antes de servir la app.
 5. **Migraciones/seed**: correr `php artisan migrate --force` (y el seeder si quieren los
    datos de fixture) al levantar por primera vez.
+6. **`APP_LOCALE`**: verificar que el `.env` de producción tenga `APP_LOCALE=es` y
+   `APP_FALLBACK_LOCALE=es`. `.env.example` traía `en` por defecto (ya corregido en el
+   repo), así que si el `.env` del servidor se generó copiando una versión vieja del
+   ejemplo, va a quedar en inglés — Laravel y Filament resuelven las traducciones (labels
+   de acciones, botones, etc.) contra `config('app.locale')`, que sale de esa variable. Si
+   el proceso de deploy corre `php artisan config:cache`, hay que volver a cachear después
+   de corregir la variable (`php artisan config:clear && php artisan config:cache`).
